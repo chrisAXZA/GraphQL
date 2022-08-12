@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server';
-// SyntaxError: Cannot use import statement outside a module
 // const { ApolloServer } = require("apollo-server");
+import typeDefs from './schema/type-defs.js';
+import resolvers from './schema/resolvers.js';
 
 // TypeDefs contains the list of all of the available data + queries for the given application
 // Resolvers will hold all of the functions (calls to API/Databases,...) 
