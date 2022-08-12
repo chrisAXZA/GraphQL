@@ -7,6 +7,7 @@ import { gql } from 'apollo-server';
 // the given API
 const typeDefs = gql`
     type User {
+        id: ID!
         name: String!
         username: String!
         age: Int!
