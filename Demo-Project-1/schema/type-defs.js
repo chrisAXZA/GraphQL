@@ -18,7 +18,16 @@ const typeDefs = gql`
     type Query {
         users: [User!]!
     }
+
+    enum Nationality {
+        CANADA
+        BRAZIL
+        INDIA
+        GERMANY
+        CHILE
+    }
 `;
+// best practice to set enum types in capital letter
 
 // module.exports = { typeDefs };
 export default typeDefs;
