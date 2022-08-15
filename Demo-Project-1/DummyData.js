@@ -61,3 +61,30 @@ export const UserList = [
         nationality: "CHILE",
     },
 ];
+
+export const MovieList = [
+    {
+        id: 1,
+        name: "Pesho Endgame",
+        yearOfPublication: 2019,
+        isInTheaters: true,
+    },
+    {
+        id: 2,
+        name: "OverStellar",
+        yearOfPublication: 2007,
+        isInTheaters: true,
+    },
+    {
+        id: 3,
+        name: "Super Cool",
+        yearOfPublication: 2009,
+        isInTheaters: true,
+    },
+    {
+        id: 4,
+        name: "UltraTech The Movie",
+        yearOfPublication: 2035,
+        isInTheaters: false,
+    },
+];

@@ -32,6 +32,13 @@ const resolvers = {
             // const user = _.find(UserList, { id: id });
             // return user;
         },
+        // Movie resolvers
+        movies: () => {
+
+        },
+        movie() {
+
+        },
     },
 };
 
