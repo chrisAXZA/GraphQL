@@ -8,7 +8,7 @@
 
 // import _ from 'lodash';
 
-import { UserList } from '../DummyData.js'
+import { MovieList, UserList } from '../DummyData.js'
 
 const resolvers = {
     Query: {
@@ -34,10 +34,11 @@ const resolvers = {
         },
         // Movie resolvers
         movies: () => {
-
+            return MovieList;
         },
-        movie() {
-
+        movie(parent, args) {
+            const movieName = args.name;
+            return MovieList.find((movie) => movie.name === movieName);
         },
     },
 };
