@@ -31,6 +31,25 @@ const typeDefs = gql`
         movie(name: String!): Movie!
     }
 
+    input CreateUserInput {
+        name: String!
+        username: String!
+        # default value of age is 18 if not provided
+        # age: Int = 18
+        age: Int!
+        # Nationality will be not required thus other values not listed
+        # in enum can be passed on
+        nationality: Nationality = BRAZIL
+        # when user is created friends or favoritMovies are not initiated
+        # and will be created separately
+        # friends: [User]
+        # favoriteMovies: [Movie]
+    }
+
+    type Mutation {
+        createUser(input: CreateUserInput!): User!
+    }
+
     enum Nationality {
         CANADA
         BRAZIL

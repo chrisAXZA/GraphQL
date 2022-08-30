@@ -46,6 +46,9 @@ const resolvers = {
             return MovieList.filter((movie) => movie.yearOfPublication >= 2000 && movie.yearOfPublication <= 2010);
         },
     },
+    Mutation: {
+        
+    },
 };
 
 export default resolvers;
