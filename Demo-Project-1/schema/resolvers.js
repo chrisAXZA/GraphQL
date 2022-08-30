@@ -47,7 +47,15 @@ const resolvers = {
         },
     },
     Mutation: {
-        
+        createUser: (parent, args) => {
+            const newUser = args.input;
+            // console.log(newUser);
+            const lastId = UserList[UserList.length - 1].id;
+            newUser.id = lastId + 1;
+            UserList.push(newUser);
+
+            return newUser;
+        },
     },
 };
 
