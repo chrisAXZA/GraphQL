@@ -60,7 +60,7 @@ const resolvers = {
             // const newUsername = args.input.username;
             const { id, username } = args.input;
             const user = UserList.find((user) => user.id === Number(id));
-            
+
             // console.log(id, username, user);
             if (user) {
                 user.username = username;
@@ -68,7 +68,13 @@ const resolvers = {
 
             return user;
         },
+        deleteUser: (parent, args) => {
+            const targetId = Number(args.id);
+            const index = UserList.findIndex((user) => user.id === targetId);
+            UserList.splice(index,1);
 
+            return null;
+        },
     },
 };
 
