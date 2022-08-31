@@ -1,5 +1,12 @@
 import './App.css';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  useQuery,
+} from '@apollo/client';
+
+import DisplayData from './DisplayData.js';
 
 function App() {
   // ApolloCient will be used by GraphQL to connect to an API
@@ -17,7 +24,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        Hello GraphQL App
+        {/* <h1>List of Users</h1> */}
+        <DisplayData></DisplayData>
       </div>
     </ApolloProvider>
   );
