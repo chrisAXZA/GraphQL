@@ -48,11 +48,25 @@ const resolvers = {
     },
     Mutation: {
         createUser: (parent, args) => {
+            const newUser = args.input;
+            const lastId = UserList[UserList.length - 1].id;
+            newUser.id = lastId + 1;
+            UserList.push(newUser);
+
+            return newUser;
+        },
+        updateUsername: (parent, args) => {
             // const userId = args.input.id;
             // const newUsername = args.input.username;
             const { id, username } = args.input;
-            const user = UserList.find((user) => user.id === id);
-            user.username = username;
+            const user = UserList.find((user) => user.id === Number(id));
+            
+            // console.log(id, username, user);
+            if (user) {
+                user.username = username;
+            }
+
+            return user;
         },
 
     },
