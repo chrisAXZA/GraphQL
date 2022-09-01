@@ -52,7 +52,8 @@ function DisplayData() {
     // useQuery hook allows ApolloClient to make call to the API. Fetches data from
     // API whenever the component renders.
     // gql statement is used in order to forumalate a GraphQL query
-    const { data, loading, error } = useQuery(QUERY_ALL_USERS);
+    // refetch fetches latest data from API without the need to change the component's state
+    const { data, loading, refetch } = useQuery(QUERY_ALL_USERS);
     const { data: movieData, loading: loadingMovieData, error: errorMovieData } = useQuery(QUERY_ALL_MOVIES);
     // useLazyQuery will only be triggered when given condition is being met
     // as a first argument takes up a function which will be called in order to fetch the given data 
@@ -105,7 +106,9 @@ function DisplayData() {
                             variables: {
                                 input: { name, username, age: Number(age), nationality, },
                             },
-                        })
+                        });
+
+                        refetch();
                     }}>
                     Create New User
                 </button>
