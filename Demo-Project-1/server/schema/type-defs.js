@@ -63,6 +63,7 @@ const typeDefs = gql`
         INDIA
         GERMANY
         CHILE
+        RUSSIA
     }
 `;
 // best practice to set enum types in capital letter
