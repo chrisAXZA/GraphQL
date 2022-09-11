@@ -2,8 +2,18 @@ import { ApolloServer, gql } from 'apollo-server';
 
 const typeDefs = gql`
     type Query {
+        # Scalor Type
         hello: String
-        # hello: [String!]!
+        # Object Type
+        products: [Product!]!
+    }
+
+    type Product {
+        name: String!
+        description: String!
+        quantity: Int!
+        price: Float!
+        onSale: Boolean!
     }
 `;
 
@@ -23,6 +33,17 @@ const resolvers = {
         hello: () => {
             return 'Hello World';
             // return ['Hello', 'World'];
+        },
+        products: () => {
+            return [
+                {
+                    name: 'Bike',
+                    description: 'Moutain Bike',
+                    quantity: 20,
+                    price: 999.99,
+                    onSale: false,
+                },
+            ];
         },
     },
 };
