@@ -1,5 +1,7 @@
 import { ApolloServer, gql } from 'apollo-server';
 
+import { products, categories, reviews } from './data.js';
+
 const typeDefs = gql`
     type Query {
         # Scalor Type
