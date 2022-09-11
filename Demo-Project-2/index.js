@@ -8,11 +8,13 @@ const typeDefs = gql`
         hello: String
         # Object Type
         products: [Product!]!
+        product(id: ID!): Product
     }
 
     type Product {
         name: String!
         description: String!
+        image: String!
         quantity: Int!
         price: Float!
         onSale: Boolean!
@@ -34,18 +36,22 @@ const resolvers = {
     Query: {
         hello: () => {
             return 'Hello World';
-            // return ['Hello', 'World'];
         },
         products: () => {
-            return [
-                {
-                    name: 'Bike',
-                    description: 'Moutain Bike',
-                    quantity: 20,
-                    price: 999.99,
-                    onSale: false,
-                },
-            ];
+            return products;
+            // return [
+            //     {
+            //         name: 'Bike',
+            //         description: 'Moutain Bike',
+            //         quantity: 20,
+            //         price: 999.99,
+            //         onSale: false,
+            //     },
+            // ];
+        },
+        product: (parent, args, context) => {
+            const productId = args.id;
+            return products.find((p) => p.id === productId);
         },
     },
 };
