@@ -9,15 +9,23 @@ const typeDefs = gql`
         # Object Type
         products: [Product!]!
         product(id: ID!): Product
+        categories: [Category!]!
     }
 
     type Product {
+        id: ID!
         name: String!
         description: String!
         image: String!
         quantity: Int!
         price: Float!
         onSale: Boolean!
+        categoryId: ID!
+    }
+
+    type Category {
+        id: ID!
+        name: String!
     }
 `;
 
@@ -52,6 +60,9 @@ const resolvers = {
         product: (parent, args, context) => {
             const productId = args.id;
             return products.find((p) => p.id === productId);
+        },
+        categories: () => {
+            return categories;
         },
     },
 };
