@@ -10,6 +10,7 @@ const typeDefs = gql`
         products: [Product!]!
         product(id: ID!): Product
         categories: [Category!]!
+        category(id: ID!): Category
     }
 
     type Product {
@@ -63,6 +64,10 @@ const resolvers = {
         },
         categories: () => {
             return categories;
+        },
+        category: (parent, args, context) => {
+            const categoryId = args.id;
+            return categories.find((c) => c.id === categoryId);
         },
     },
 };
