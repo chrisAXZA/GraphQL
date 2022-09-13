@@ -16,7 +16,7 @@ export const Query = {
         //     },
         // ];
     },
-    product: (parent, { productId }, { products }) => {
+    product: (parent, { id: productId }, { products }) => {
         // const productId = args.id;
         return products.find((p) => p.id === productId);
     },

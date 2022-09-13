@@ -35,6 +35,7 @@ const server = new ApolloServer({
         message: () => { console.log('Hello GraphQL!!!'); },
         categories,
         products,
+        reviews,
     },
 });
 
