@@ -4,17 +4,30 @@ export const Query = {
     hello: () => {
         return 'Hello World';
     },
-    products: (parent, args, { products }) => {
-        return products;
-        // return [
-        //     {
-        //         name: 'Bike',
-        //         description: 'Moutain Bike',
-        //         quantity: 20,
-        //         price: 999.99,
-        //         onSale: false,
-        //     },
-        // ];
+    products: (parent, { filter }, { products }) => {
+        let filteredProducts = products;
+
+        if (filter) {
+            for (const item in filter) {
+                console.log(item);
+                if (item === 'onSale') {
+                    filteredProducts = filteredProducts.filter((p) => p[item]);
+                } else {
+                    const num = Number(filter.price);
+                    filteredProducts = filteredProducts.filter((p) => p.price >= num);
+                }
+            }
+        }
+
+        // if (filter) {
+        //     if (filter.onSale === true) {
+        //         filteredProducts = filteredProducts.filter((p) => {
+        //             return p.onSale;
+        //         });
+        //     }
+        // }
+
+        return filteredProducts;
     },
     product: (parent, { id: productId }, { products }) => {
         // const productId = args.id;
@@ -33,3 +46,13 @@ export const Query = {
         return category;
     },
 };
+
+// return [
+//     {
+//         name: 'Bike',
+//         description: 'Mountain Bike',
+//         quantity: 20,
+//         price: 999.99,
+//         onSale: false,
+//     },
+// ];

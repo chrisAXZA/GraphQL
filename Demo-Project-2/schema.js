@@ -7,7 +7,11 @@ export const typeDefs = gql`
         # Scalor Type
         hello: String
         # Object Type
-        products: [Product!]!
+        # products: [Product!]!
+        # filterParam as Object, needs to be defined as input value, can have multiple properties
+        # when set to nullable (without !) does not require for the filter to be provided
+        # wihtout the filter returns all of the products
+        products(filter: ProductsFilterInput): [Product!]!
         product(id: ID!): Product
         categories: [Category!]!
         category(id: ID!): Category
@@ -29,7 +33,8 @@ export const typeDefs = gql`
     type Category {
         id: ID!
         name: String!
-        products: [Product!]!
+        # products: [Product!]!
+        products(filter: ProductsFilterInput): [Product!]!
     }
 
     type Review {
@@ -39,6 +44,11 @@ export const typeDefs = gql`
         date: String!
         rating: Int!
         productId: ID!
+    }
+
+    input ProductsFilterInput {
+        onSale: Boolean
+        price: Float
     }
 `;
 
