@@ -49,6 +49,7 @@ export const typeDefs = gql`
     input ProductsFilterInput {
         onSale: Boolean
         price: Float
+        rating: Int
     }
 `;
 

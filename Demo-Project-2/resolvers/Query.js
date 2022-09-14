@@ -4,28 +4,40 @@ export const Query = {
     hello: () => {
         return 'Hello World';
     },
-    products: (parent, { filter }, { products }) => {
+    products: (parent, { filter }, { products, reviews }) => {
         let filteredProducts = products;
 
         if (filter) {
             for (const item in filter) {
-                console.log(item);
+                // console.log(item);
                 if (item === 'onSale') {
                     filteredProducts = filteredProducts.filter((p) => p[item]);
-                } else {
+                } else if (item === 'price') {
                     const num = Number(filter.price);
                     filteredProducts = filteredProducts.filter((p) => p.price >= num);
+                } else if (item === 'rating') {
+                    const num = Number(filter.rating);
+
+                    if (![1, 2, 3, 4, 5].includes(num)) {
+                        return;
+                    }
+
+                    filteredProducts = filteredProducts.filter((p) => {
+                        const productReviews = reviews.filter((r) => r.productId === p.id);
+                        p.reviews = productReviews;
+
+                        const averageRating = p.reviews.reduce((acc, curr) => {
+                            acc += Number(curr.rating);
+                            return acc;
+                        }, 0) / p.reviews.length;
+
+                        if (averageRating >= num) {
+                            return p;
+                        }
+                    });
                 }
             }
         }
-
-        // if (filter) {
-        //     if (filter.onSale === true) {
-        //         filteredProducts = filteredProducts.filter((p) => {
-        //             return p.onSale;
-        //         });
-        //     }
-        // }
 
         return filteredProducts;
     },
@@ -56,3 +68,11 @@ export const Query = {
 //         onSale: false,
 //     },
 // ];
+
+// if (filter) {
+//     if (filter.onSale === true) {
+//         filteredProducts = filteredProducts.filter((p) => {
+//             return p.onSale;
+//         });
+//     }
+// }
