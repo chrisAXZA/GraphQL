@@ -5,7 +5,29 @@ import { typeDefs } from './schema.js';
 import { Query } from './resolvers/Query.js';
 import { Product } from './resolvers/Product.js';
 import { Category } from './resolvers/Category.js';
+import { Mutation } from './resolvers/Mutation.js';
 import { products, categories, reviews } from './data.js';
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers: {
+        Query,
+        Category,
+        Product,
+        Mutation,
+    },
+    context: {
+        message: () => { console.log('Hello GraphQL!!!'); },
+        categories,
+        products,
+        reviews,
+    },
+});
+
+server.listen()
+    .then(({ url }) => {
+        console.log(`Server is running at port >>> ${url}`);
+    });
 
 // const resolvers = {
 //     Query: {
@@ -23,23 +45,3 @@ import { products, categories, reviews } from './data.js';
 //         },
 //     },
 // };
-
-const server = new ApolloServer({
-    typeDefs,
-    resolvers: {
-        Query,
-        Category,
-        Product,
-    },
-    context: {
-        message: () => { console.log('Hello GraphQL!!!'); },
-        categories,
-        products,
-        reviews,
-    },
-});
-
-server.listen()
-    .then(({ url }) => {
-        console.log(`Server is running at port >>> ${url}`);
-    });
