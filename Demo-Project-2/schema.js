@@ -26,6 +26,7 @@ export const typeDefs = gql`
         addCategory(input: AddCategoryInput): Category!
         addProduct(input: AddProductInput): Product!
         addReview(input: AddReviewInput): Review!
+        updateCategory(id: ID!, input: UpdateCategoryInput): Category!
         deleteCategory(id: ID!): Boolean!
         deleteProduct(id: ID!): Boolean!
         deleteAllProducts: Boolean!
@@ -88,6 +89,10 @@ export const typeDefs = gql`
         date: String!
         rating: Int!
         productId: ID!
+    }
+
+    input UpdateCategoryInput {
+        name: String!
     }
 `;
 

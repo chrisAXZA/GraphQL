@@ -79,6 +79,24 @@ export const Mutation = {
 
         return newReview;
     },
+    updateCategory: (parent, { id, input }, { db }) => {
+        let oldCategory = db.categories.find((c) => c.id === id);
+        let index = db.categories.findIndex((c) => c.id === id);
+
+        // Alternative to splice
+        // db.categories[index] = 
+        oldCategory = {
+            // ...db.categories[index], => Alternative to id
+            // id: db.categories[index].id,
+            id,
+            ...input,
+        };
+
+        db.categories.splice(index, 1, oldCategory);
+
+        // return db.categories[index];
+        return oldCategory;
+    },
     deleteCategory: (parent, { id }, { db }) => {
         const categoryToDelete = db.categories.find((c) => c.id === id);
         db.categories = db.categories.filter((c) => c !== categoryToDelete);
@@ -107,7 +125,7 @@ export const Mutation = {
         db.products = [];
         db.reviews = [];
 
-        return db.products.length === 0;
+        return (db.products.length + db.reviews.length) === 0;
     },
     deleteReview: (parent, { id }, { db }) => {
         const reviewToDelete = db.reviews.find((r) => r.id === id);
