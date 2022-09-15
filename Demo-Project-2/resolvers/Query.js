@@ -59,6 +59,9 @@ export const Query = {
 
         return category;
     },
+    reviews: (parent, args, { db }) => {
+        return db.reviews;
+    },
 };
 
 // return [
