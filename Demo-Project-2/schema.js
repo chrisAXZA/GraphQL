@@ -15,6 +15,7 @@ export const typeDefs = gql`
         product(id: ID!): Product
         categories: [Category!]!
         category(id: ID!): Category
+        review(id: ID!): Review
         reviews: [Review!]!
     }
 
