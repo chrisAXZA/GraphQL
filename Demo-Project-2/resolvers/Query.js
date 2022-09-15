@@ -4,8 +4,9 @@ export const Query = {
     hello: () => {
         return 'Hello World';
     },
-    products: (parent, { filter }, { products, reviews }) => {
-        let filteredProducts = products;
+    // products: (parent, { filter }, { products, reviews }) => {
+    products: (parent, { filter }, { db }) => {
+        let filteredProducts = db.products;
 
         if (filter) {
             for (const item in filter) {
@@ -23,7 +24,7 @@ export const Query = {
                     }
 
                     filteredProducts = filteredProducts.filter((p) => {
-                        const productReviews = reviews.filter((r) => r.productId === p.id);
+                        const productReviews = db.reviews.filter((r) => r.productId === p.id);
                         p.reviews = productReviews;
 
                         const averageRating = p.reviews.reduce((acc, curr) => {
@@ -41,17 +42,18 @@ export const Query = {
 
         return filteredProducts;
     },
-    product: (parent, { id: productId }, { products }) => {
+    // product: (parent, { id: productId }, { products }) => {
+    product: (parent, { id: productId }, { db }) => {
         // const productId = args.id;
-        return products.find((p) => p.id === productId);
+        return db.products.find((p) => p.id === productId);
     },
-    categories: (parent, args, { categories }) => {
-        return categories;
+    categories: (parent, args, { db }) => {
+        return db.categories;
     },
-    category: (parent, { id: categoryId }, { categories }) => {
+    category: (parent, { id: categoryId }, { db }) => {
         // const categoryId = args.id;
         // const { id: categoryId } = args;
-        const category = categories.find((c) => c.id === categoryId);
+        const category = db.categories.find((c) => c.id === categoryId);
         // const productsByCategory = products.filter((p) => p.categoryId === categoryId);
         // category.products = productsByCategory;
 

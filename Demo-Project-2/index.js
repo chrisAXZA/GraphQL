@@ -6,7 +6,8 @@ import { Query } from './resolvers/Query.js';
 import { Product } from './resolvers/Product.js';
 import { Category } from './resolvers/Category.js';
 import { Mutation } from './resolvers/Mutation.js';
-import { products, categories, reviews } from './data.js';
+// import { products, categories, reviews } from './data.js';
+import { db } from './data.js';
 
 const server = new ApolloServer({
     typeDefs,
@@ -18,9 +19,10 @@ const server = new ApolloServer({
     },
     context: {
         message: () => { console.log('Hello GraphQL!!!'); },
-        categories,
-        products,
-        reviews,
+        db,
+        // categories,
+        // products,
+        // reviews,
     },
 });
 

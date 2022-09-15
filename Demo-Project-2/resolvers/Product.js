@@ -2,11 +2,11 @@
 
 export const Product = {
     // category: (parent, args, context) => {
-    category: ({ categoryId }, args, { categories }) => {
+    category: ({ categoryId }, args, { db }) => {
         // const { categoryId } = parent;
-        return categories.find((c) => c.id === categoryId);
+        return db.categories.find((c) => c.id === categoryId);
     },
     reviews: ({ id }, args, { reviews }) => {
-        return reviews.filter((r) => r.productId === id);
+        return db.reviews.filter((r) => r.productId === id);
     },
 };

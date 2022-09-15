@@ -2,10 +2,10 @@ import { v4 as uuid } from 'uuid';
 // const { v4: uuid } = require('uuid');
 
 export const Mutation = {
-    addCategory: (parent, { input }, { categories }) => {
+    addCategory: (parent, { input }, { db }) => {
         const categoryName = input.name;
 
-        if (categories.find((c) => c.name === categoryName)) {
+        if (db.categories.find((c) => c.name === categoryName)) {
             console.log(`Category with the given name "${categoryName}" already exists!`);
             return;
         }
@@ -15,11 +15,12 @@ export const Mutation = {
             name: categoryName,
         };
 
-        categories.push(category);
+        db.categories.push(category);
 
         return category;
     },
-    addProduct: (parent, { input }, { categories, products, reviews }) => {
+    // addProduct: (parent, { input }, { categories, products, reviews }) => {
+    addProduct: (parent, { input }, { db }) => {
         const {
             name,
             description,
@@ -30,7 +31,7 @@ export const Mutation = {
             categoryId,
         } = input;
 
-        if (products.find((p) => p.name === name)) {
+        if (db.products.find((p) => p.name === name)) {
             console.log(`Product with the given name "${name}" already exists!`);
             return null;
         }
@@ -44,14 +45,14 @@ export const Mutation = {
             price,
             onSale,
             categoryId,
-            reviews: [],
+            // reviews: [],
         };
 
-        products.push(newProduct);
+        db.products.push(newProduct);
 
         return newProduct;
     },
-    addReview: (parent, { input }, { categories, products, reviews }) => {
+    addReview: (parent, { input }, { db }) => {
         const {
             title,
             comment,
@@ -60,7 +61,7 @@ export const Mutation = {
             productId,
         } = input;
 
-        if (reviews.find((r) => r.title === title)) {
+        if (db.reviews.find((r) => r.title === title)) {
             console.log(`Review with the given name "${title}" already exists!`);
             return null;
         }
@@ -74,8 +75,17 @@ export const Mutation = {
             productId,
         };
 
-        reviews.push(newReview);
+        db.reviews.push(newReview);
 
         return newReview;
+    },
+    deleteCategory: (parent, { id }, { db }) => {
+        const categoryToDelete = db.categories.find((c) => c.id === id);
+        db.categories = db.categories.filter((c) => c !== categoryToDelete);
+
+        // console.log(categoryToDelete);
+
+        return categoryToDelete !== null;
+        // return `Category ${categoryToDelete.name} has been deleted!`;
     },
 };

@@ -1,11 +1,11 @@
 // import { products } from '../data.js';
 
 export const Category = {
-    products: ({ id }, { filter }, { products, reviews }) => {
+    products: ({ id }, { filter }, { db }) => {
         // const { id } = parent;
         // return products.filter((p) => p.categoryId === id);
 
-        let filteredProducts = products.filter((p) => p.categoryId === id);
+        let filteredProducts = db.products.filter((p) => p.categoryId === id);
 
         if (filter) {
             for (const item in filter) {
