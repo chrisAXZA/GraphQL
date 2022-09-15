@@ -81,6 +81,11 @@ export const Mutation = {
     },
     updateCategory: (parent, { id, input }, { db }) => {
         let oldCategory = db.categories.find((c) => c.id === id);
+
+        if (oldCategory === null) {
+            return null;
+        }
+
         let index = db.categories.findIndex((c) => c.id === id);
 
         // Alternative to splice
@@ -96,6 +101,34 @@ export const Mutation = {
 
         // return db.categories[index];
         return oldCategory;
+    },
+    updateProduct: (parent, { id, input }, { db }) => {
+        const index = db.products.findIndex((p) => p.id === id);
+
+        if (index === -1) {
+            return null;
+        }
+
+        db.products[index] = {
+            ...db.products[index],
+            ...input,
+        };
+
+        return db.products[index];
+    },
+    updateReview: (parent, { id, input }, { db }) => {
+        const index = db.reviews.findIndex((r) => r.id === id);
+
+        if (index === -1) {
+            return null;
+        }
+
+        db.reviews[index] = {
+            ...db.reviews[index],
+            ...input,
+        };
+
+        return db.reviews[index];
     },
     deleteCategory: (parent, { id }, { db }) => {
         const categoryToDelete = db.categories.find((c) => c.id === id);
