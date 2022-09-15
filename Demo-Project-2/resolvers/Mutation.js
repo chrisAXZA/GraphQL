@@ -105,6 +105,7 @@ export const Mutation = {
     },
     deleteAllProducts: (parent, args, { db }) => {
         db.products = [];
+        db.reviews = [];
 
         return db.products.length === 0;
     },
