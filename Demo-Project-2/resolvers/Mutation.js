@@ -103,4 +103,10 @@ export const Mutation = {
 
         return productToDelete !== null;
     },
+    deleteReview: (parent, { id }, { db }) => {
+        const reviewToDelete = db.reviews.find((r) => r.id === id);
+        db.reviews = db.reviews.filter((r) => r !== reviewToDelete);
+
+        return reviewToDelete;
+    },
 };
