@@ -82,10 +82,25 @@ export const Mutation = {
     deleteCategory: (parent, { id }, { db }) => {
         const categoryToDelete = db.categories.find((c) => c.id === id);
         db.categories = db.categories.filter((c) => c !== categoryToDelete);
-
-        // console.log(categoryToDelete);
+        db.products = db.products.map((p) => {
+            if (p.categoryId === id) {
+                return {
+                    ...p,
+                    categoryId: null,
+                };
+            } else {
+                return p;
+            }
+        });
 
         return categoryToDelete !== null;
         // return `Category ${categoryToDelete.name} has been deleted!`;
+    },
+    deleteProduct: (parent, { id }, { db }) => {
+        const productToDelete = db.products.find((p) => p.id === id);
+        db.products = db.products.filter((p) => p !== productToDelete);
+        db.reviews = db.reviews.filter((r) => r.productId !== id);
+
+        return productToDelete !== null;
     },
 };
