@@ -103,6 +103,11 @@ export const Mutation = {
 
         return productToDelete !== null;
     },
+    deleteAllProducts: (parent, args, { db }) => {
+        db.products = [];
+
+        return db.products.length === 0;
+    },
     deleteReview: (parent, { id }, { db }) => {
         const reviewToDelete = db.reviews.find((r) => r.id === id);
         db.reviews = db.reviews.filter((r) => r !== reviewToDelete);

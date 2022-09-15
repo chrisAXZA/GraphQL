@@ -28,6 +28,7 @@ export const typeDefs = gql`
         addReview(input: AddReviewInput): Review!
         deleteCategory(id: ID!): Boolean!
         deleteProduct(id: ID!): Boolean!
+        deleteAllProducts: Boolean!
         deleteReview(id: ID!): Boolean!
     }
 
