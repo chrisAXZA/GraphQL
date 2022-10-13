@@ -4,7 +4,7 @@ import { graphqlHTTP } from 'express-graphql';
 
 import { schema } from './schema/schema.js';
 
-dotenv.config({ path: '../.env', });
+dotenv.config();
 
 const port = process.env.PORT || 5000;
 const app = express();
