@@ -1,5 +1,6 @@
 import {
     GraphQLID,
+    GraphQLList,
     GraphQLObjectType,
     GraphQLSchema,
     GraphQLString,
@@ -21,6 +22,12 @@ const ClientType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: ({ // fields will relate to query functions
+        clients: {
+            type: new GraphQLList(ClientType),
+            resolve(parent, args) {
+                return clients;
+            },
+        },
         client: {
             type: ClientType,
             args: { id: { type: GraphQLID } },
