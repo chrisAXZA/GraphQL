@@ -6,6 +6,8 @@ import {
     GraphQLString,
 } from "graphql";
 
+import ClientModel from '../models/Client.js';
+import ProjectModel from '../models/Project.js';
 import { clients, projects } from "../sampleData.js";
 
 // Client Type
@@ -31,7 +33,9 @@ const ProjectType = new GraphQLObjectType({
         client: {
             type: new GraphQLList(ClientType),
             resolve: (parent, args) => {
-                return clients.filter((client) => client.id === parent.clientId);
+                // return clients.filter((client) => client.id === parent.clientId);
+                // return clients.findById(parent.clientId); // find single client per project
+                return ClientModel.find({ id: parent.clientId }); // find all clients per project
             },
         },
     }),
@@ -45,33 +49,38 @@ const RootQuery = new GraphQLObjectType({
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
                 // in the case of Mongoose, will take up Mongo function
-                return clients.find((client) => client.id === args.id);
+                // return clients.find((client) => client.id === args.id);
+                return ClientModel.findById(args.id);
             },
         },
         clients: {
             type: new GraphQLList(ClientType),
             resolve(parent, args) {
-                return clients;
+                // return clients;
+                return ClientModel.find();
             },
         },
         project: {
             type: ProjectType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return projects.find((project) => project.id === args.id);
+                // return projects.find((project) => project.id === args.id);
+                return ProjectModel.findById(args.id);
             },
         },
         projects: {
             type: new GraphQLList(ProjectType),
             resolve(parent, args) {
-                return projects;
+                // return projects;
+                return ProjectModel.find();
             },
         },
         projectsByClient: {
             type: new GraphQLList(ProjectType),
             args: { clientId: { type: GraphQLID } },
             resolve(parent, args) {
-                return projects.filter((project) => project.clientId === args.clientId);
+                // return projects.filter((project) => project.clientId === args.clientId);
+                return ProjectModel.find({ clientId: args.clientId });
             },
         },
     }),

@@ -6,4 +6,5 @@ const ClientSchema = new mongoose.Schema({
     phone: { type: String },
 });
 
-export default ClientModel = mongoose.model('Client', ClientSchema);
+const ClientModel = mongoose.model('Client', ClientSchema);
+export default ClientModel;
