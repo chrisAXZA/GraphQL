@@ -1,6 +1,7 @@
 import {
     GraphQLID,
     GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLSchema,
     GraphQLString,
@@ -8,7 +9,7 @@ import {
 
 import ClientModel from '../models/Client.js';
 import ProjectModel from '../models/Project.js';
-import { clients, projects } from "../sampleData.js";
+// import { clients, projects } from "../sampleData.js";
 
 // Client Type
 const ClientType = new GraphQLObjectType({
@@ -41,6 +42,7 @@ const ProjectType = new GraphQLObjectType({
     }),
 });
 
+// Queries
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: ({ // fields will relate to query functions
@@ -86,6 +88,32 @@ const RootQuery = new GraphQLObjectType({
     }),
 });
 
+// Mutations
+const mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addClient: {
+            type: ClientType, // object that is being created
+            args: { // fields that will be added to new object
+                name: { type: new GraphQLNonNull(GraphQLString) }, // can not be null
+                email: { type: new GraphQLNonNull(GraphQLString) }, // can not be null
+                phone: { type: new GraphQLNonNull(GraphQLString) }, // can not be null
+            },
+            resolve(parent, args) {
+                const client = new ClientModel({
+                    name: args.name,
+                    email: args.email,
+                    phone: args.phone,
+                });
+
+                return client.save();
+                // Alternative: ClientModel.create();
+            },
+        },
+    },
+});
+
 export const schema = new GraphQLSchema({
     query: RootQuery,
+    mutation,
 });
