@@ -7,7 +7,8 @@ dotenv.config();
 const connectDB = async () => {
     const connection = await mongoose.connect(process.env.MONGO_URI);
 
-    console.log(`DB is running on port >>> ${connection.connection.port}`.cyan.underline.bold);
+    console.log(`DB is running on port >>> ${connection.connection.port}`.blue.bold);
+    // console.log(`DB is running on port >>> ${connection.connection.port}`.magenta.underline.bold);
 };
 
 export default connectDB;
