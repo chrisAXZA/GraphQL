@@ -1,4 +1,5 @@
 import {
+    GraphQLEnumType,
     GraphQLID,
     GraphQLList,
     GraphQLNonNull,
@@ -117,6 +118,36 @@ const mutation = new GraphQLObjectType({
             },
             resolve(parent, { clientId }) {
                 return ClientModel.findByIdAndRemove(clientId);
+            },
+        },
+        addProject: {
+            type: ProjectType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                description: { type: new GraphQLNonNull(GraphQLString) },
+                status: {
+                    type: new GraphQLEnumType({
+                        name: 'ProjectStatus', // name needs to be unique
+                        values: {
+                            'new': { value: 'Not Started' },
+                            'progress': { value: 'In Progress' },
+                            'completed': { value: 'Completed' },
+                            // key -> corresponding value
+                        },
+                    }),
+                    defaultValue: 'Not Started', // default value
+                },
+                clientId: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, { name, description, status, clientId }) {
+                const project = new ProjectModel({
+                    name,
+                    description,
+                    status,
+                    clientId,
+                });
+
+                return project.save();
             },
         },
     },
