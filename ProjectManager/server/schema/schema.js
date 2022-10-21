@@ -34,10 +34,13 @@ const ProjectType = new GraphQLObjectType({
         status: { type: GraphQLString },
         client: {
             type: new GraphQLList(ClientType),
+            // type: ClientType,
             resolve: (parent, args) => {
                 // return clients.filter((client) => client.id === parent.clientId);
                 // return clients.findById(parent.clientId); // find single client per project
-                return ClientModel.find({ id: parent.clientId }); // find all clients per project
+
+                return ClientModel.find({ _id: parent.clientId }); // find all clients per project
+                // return ClientModel.findById(parent.clientId); // find all clients per project
             },
         },
     }),
@@ -148,6 +151,15 @@ const mutation = new GraphQLObjectType({
                 });
 
                 return project.save();
+            },
+        },
+        deleteProject: {
+            type: ProjectType,
+            args: {
+                projectId: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, { projectId }) {
+                return ProjectModel.findByIdAndRemove(projectId);
             },
         },
     },
