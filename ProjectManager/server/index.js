@@ -1,3 +1,4 @@
+import cors from 'cors';
 import colors from 'colors';
 import express from 'express';
 import * as dotenv from 'dotenv';
@@ -13,6 +14,7 @@ const app = express();
 // connect to DB
 connectDB();
 
+app.use(cors());
 app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV === 'development',
