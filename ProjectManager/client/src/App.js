@@ -1,15 +1,25 @@
 import React from "react";
+// InMemoryCache will be used in order to store client data in cache,
+// in order to avoid reloading the page
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import Header from "./components/Header.jsx";
+
+const client = new ApolloClient({
+    uri: 'http://localhost:3001/graphql',
+    cache: new InMemoryCache(),
+});
 
 function App() {
     return (
         <>
-            <Header />
+            <ApolloProvider client={client}>
+                <Header />
 
-            <div className="container">
-                <h1>Hello World</h1>
-            </div>
+                <div className="container">
+                    <h1>Hello World</h1>
+                </div>
+            </ApolloProvider>
         </>
     );
 }
