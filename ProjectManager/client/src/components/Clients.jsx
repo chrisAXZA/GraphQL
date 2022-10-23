@@ -3,17 +3,7 @@ import React from "react";
 import { gql, useQuery } from '@apollo/client';
 
 import ClientRow from "./ClientRow.jsx";
-
-const GET_CLIENTS = gql`
-    query getClients {
-        clients {
-            id
-            name
-            email
-            phone
-        }
-    }
-`;
+import { GET_CLIENTS } from "../queries/clientQueries.js";
 
 export default function Clients() {
     // ApolloProvider has its own state-manager
