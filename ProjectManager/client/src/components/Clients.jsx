@@ -2,6 +2,7 @@ import React from "react";
 // gql creates query, useQuery allows access to data (+loadingState, any errors) in given component
 import { gql, useQuery } from '@apollo/client';
 
+import Spinner from "./Spinner.jsx";
 import ClientRow from "./ClientRow.jsx";
 import { GET_CLIENTS } from "../queries/clientQueries.js";
 
@@ -11,7 +12,8 @@ export default function Clients() {
 
     if (loading) {
         return (
-            <p style={{ fontSize: "24px", color: "green" }}>Loading...</p>
+            // <p style={{ fontSize: "24px", color: "green" }}>Loading...</p>
+            <Spinner />
         );
     }
 
