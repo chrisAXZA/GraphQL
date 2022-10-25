@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 
 import Spinner from "./Spinner.jsx";
+import ProjectCard from "./ProjectCard.jsx";
 import { GET_PROJECTS } from "../queries/projectQueries.js";
 
 export default function Projects() {
@@ -21,7 +22,7 @@ export default function Projects() {
         <>
             {data.projects.length > 0 ?
                 (
-                    <div className="row">
+                    <div className="row mt-4">
                         {data.projects
                             .map((project) => (<ProjectCard key={project.id} project={project} />))}
                     </div>
