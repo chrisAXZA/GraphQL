@@ -1,6 +1,7 @@
 import React from "react";
 // InMemoryCache will be used in order to store client data in cache,
 // in order to avoid reloading the page
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 // import './index.css';
@@ -39,12 +40,14 @@ function App() {
     return (
         <>
             <ApolloProvider client={client}>
-                <Header />
-                <div className="container">
-                    <AddClientModal />
-                    <Projects />
-                    <Clients />
-                </div>
+                <Router>
+                    <Header />
+                    <div className="container">
+                        <AddClientModal />
+                        <Projects />
+                        <Clients />
+                    </div>
+                </Router>
             </ApolloProvider>
         </>
     );
