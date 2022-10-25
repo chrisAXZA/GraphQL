@@ -5,10 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 // import './index.css';
+import Home from "./pages/Home.jsx";
 import Header from "./components/Header.jsx";
-import Clients from "./components/Clients.jsx";
-import Projects from "./components/Projects.jsx";
-import AddClientModal from "./components/AddClientModal.jsx";
 
 // merges incoming and existing data in cache
 const cache = new InMemoryCache({
@@ -43,9 +41,9 @@ function App() {
                 <Router>
                     <Header />
                     <div className="container">
-                        <AddClientModal />
-                        <Projects />
-                        <Clients />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                        </Routes>
                     </div>
                 </Router>
             </ApolloProvider>
