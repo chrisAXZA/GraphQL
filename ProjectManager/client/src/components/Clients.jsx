@@ -1,6 +1,6 @@
 import React from "react";
 // gql creates query, useQuery allows access to data (+loadingState, any errors) in given component
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import Spinner from "./Spinner.jsx";
 import ClientRow from "./ClientRow.jsx";

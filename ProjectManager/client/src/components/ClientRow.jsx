@@ -8,7 +8,8 @@ import { DELETE_CLIENT } from "../mutations/clientMutations.js";
 export default function ClientRow({ client }) {
     // console.log(client);
 
-    const [deleteClient, { loading, error, data }] = useMutation(DELETE_CLIENT, {
+    // const [deleteClient, { loading, error, data }] = useMutation(DELETE_CLIENT, {
+    const [deleteClient] = useMutation(DELETE_CLIENT, {
         variables: { clientId: client.id },
         // refetchQueries: [{ query: GET_CLIENTS }], // increases low performance when applied to too many queries
         update(cache, { data: { deleteClient } }) {
@@ -18,7 +19,7 @@ export default function ClientRow({ client }) {
 
             cache.writeQuery({
                 query: GET_CLIENTS,
-                data: { clients: clients.filter((client) => client.id !== deleteClient.id) }, 
+                data: { clients: clients.filter((client) => client.id !== deleteClient.id) },
                 // filters out the deleting client's id (ClientType!)
             });
         },
