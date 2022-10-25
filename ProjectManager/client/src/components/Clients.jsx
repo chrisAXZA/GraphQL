@@ -19,7 +19,7 @@ export default function Clients() {
 
     if (error) {
         return (
-            <p style={{ fontSize: "24px", color: "red" }}>Some error occurred!</p>
+            <p style={{ fontSize: "24px", color: "red" }}>Some error with the ClientData occurred!</p>
         );
     }
 
