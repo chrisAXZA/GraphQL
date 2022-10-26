@@ -8,6 +8,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Home from "./pages/Home.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Header from "./components/Header.jsx";
+import ProjectDetails from "./pages/ProjectDetails.jsx";
 
 // merges incoming and existing data in cache
 const cache = new InMemoryCache({
@@ -44,6 +45,7 @@ function App() {
                     <div className="container">
                         <Routes>
                             <Route path="/" element={<Home />} />
+                            <Route path="/projects/:id" element={<ProjectDetails />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
