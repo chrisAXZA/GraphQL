@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { Link, useParams } from "react-router-dom";
 
 import Spinner from "../components/Spinner.jsx";
+import ClientInfo from "../components/ClientInfo.jsx";
 import { GET_PROJECT } from "../queries/projectQueries.js";
 
 export default function ProjectDetails() {
@@ -31,6 +32,8 @@ export default function ProjectDetails() {
                     <hr />
                     <h5 className="mt-3">Project Status</h5>
                     <p className="lead">{data.project.status}</p>
+                    <ClientInfo client={data.project.client[0]} />
+                    <hr />
                 </div>
             )}
         </>
