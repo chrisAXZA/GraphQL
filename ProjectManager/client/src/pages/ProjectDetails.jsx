@@ -31,8 +31,11 @@ export default function ProjectDetails() {
                     <p>{data.project.description}</p>
                     <hr />
                     <h5 className="mt-3">Project Status</h5>
-                    <p className="lead">{data.project.status}</p>
+                    <p className="lead" style={{ color: "green" }}>{data.project.status}</p>
                     <ClientInfo client={data.project.client[0]} />
+                    <div>
+                        <br />
+                    </div>
                     <hr />
                 </div>
             )}
