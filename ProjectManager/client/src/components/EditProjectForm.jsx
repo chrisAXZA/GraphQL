@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { GET_PROJECT } from '../queries/projectQueries.js';
+import { UPDATE_PROJECT } from '../mutations/projectMutations.js';
 
 export default function EditProjectForm({ project }) {
     const key = project.status === 'Not Started' ? 'new'
@@ -13,6 +14,20 @@ export default function EditProjectForm({ project }) {
     const [description, setDescription] = useState(project.description);
     const [status, setStatus] = useState(key); // enum can only take up key value, not the value itself
 
+    const [updateProject] = useMutation(UPDATE_PROJECT, {
+        variables: { projectId: project.id, name, description, status },
+        // refetchQueries: [{ query: GET_PROJECT, variables: { id: project.id } }],
+        update(cache, { data: { updateProject } }) {
+            // const { currentProject } = cache.readQuery({ query: GET_PROJECT, variables: { id: project.id } });
+
+            cache.writeQuery({
+                query: GET_PROJECT,
+                variables: { id: project.id },
+                data: { project: updateProject },
+            });
+        },
+    });
+
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -20,7 +35,7 @@ export default function EditProjectForm({ project }) {
             return alert('Please fill in all of the fields!');
         }
 
-        
+        updateProject(name, description, status);
     };
 
     return (
