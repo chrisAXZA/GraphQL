@@ -21,10 +21,10 @@ export const DELETE_PROJECT = gql`
     mutation deleteProject($projectId: ID!) {
         deleteProject(projectId: $projectId) {
             id
-            name
-            description
-            status
-            clientId
+            # name
+            # description
+            # status
+            # clientId
         }
     }
 `;

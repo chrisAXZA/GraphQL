@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner.jsx";
 import ClientInfo from "../components/ClientInfo.jsx";
 import { GET_PROJECT } from "../queries/projectQueries.js";
+import DeleteProjectButton from "../components/DeleteProjectButton.jsx";
 
 export default function ProjectDetails() {
     const { id } = useParams();
@@ -24,15 +25,19 @@ export default function ProjectDetails() {
         <>
             {!loading && !error && (
                 <div className="mx-auto w-75 card p-5">
-                    <Link to="/" className="btn btn-light btn-sm w-25 d-inline ms-auto">
+                    <Link to="/" className="btn btn-light btn-dark btn-sm w-25 d-inline ms-auto">
                         Back to Projects
                     </Link>
                     <h1>{data.project.name}</h1>
                     <p>{data.project.description}</p>
+
                     <hr />
+
                     <h5 className="mt-3">Project Status</h5>
                     <p className="lead" style={{ color: "green" }}>{data.project.status}</p>
                     <ClientInfo client={data.project.client[0]} />
+
+                    <DeleteProjectButton projectId={data.project.id} />
                     <div>
                         <br />
                     </div>
