@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner.jsx";
 import ClientInfo from "../components/ClientInfo.jsx";
 import { GET_PROJECT } from "../queries/projectQueries.js";
+import EditProjectForm from "../components/EditProjectForm.jsx";
 import DeleteProjectButton from "../components/DeleteProjectButton.jsx";
 
 export default function ProjectDetails() {
@@ -37,6 +38,7 @@ export default function ProjectDetails() {
                     <p className="lead" style={{ color: "green" }}>{data.project.status}</p>
                     <ClientInfo client={data.project.client[0]} />
 
+                    <EditProjectForm project={data.project} />
                     <DeleteProjectButton projectId={data.project.id} />
                     <div>
                         <br />
